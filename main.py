@@ -30,3 +30,34 @@ def check_winner(board):
         return 'Tie'  # Game is a tie
     
     return None
+
+def minimax(board, depth, is_maximizing):
+    # Minimax algorithm implementation
+    result = check_winner(board)
+    
+    # Terminal states
+    if result == 'X':  # AI wins
+        return 1
+    elif result == 'O':  # Human wins
+        return -1
+    elif result == 'Tie':
+        return 0
+    
+    if is_maximizing:
+        best_score = float('-inf')
+        for i in range(9):
+            if board[i] == ' ':
+                board[i] = 'X'
+                score = minimax(board, depth + 1, False)
+                board[i] = ' '
+                best_score = max(score, best_score)
+        return best_score
+    else:
+        best_score = float('inf')
+        for i in range(9):
+            if board[i] == ' ':
+                board[i] = 'O'
+                score = minimax(board, depth + 1, True)
+                board[i] = ' '
+                best_score = min(score, best_score)
+        return best_score
