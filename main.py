@@ -23,7 +23,7 @@ def check_winner(board):
     ]
     
     for combo in win_combinations:
-        if board[combo[0]] == board[combo[1]] == board[combo[2]] != ' ':
+        if board[combo[0]] == board[combo[1]] == board[combo[2]] != ' ': #checks whether all three positions in the winning combination are the same and not empty
             return board[combo[0]]  # Return the winner ('X' or 'O')
     
     if ' ' not in board:
