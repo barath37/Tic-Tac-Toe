@@ -77,3 +77,14 @@ def ai_move(board):
                 best_move = i
     
     return best_move
+
+def get_player_move(board):
+    while True:
+        try:
+            move = int(input("Enter your move (1-9): ")) - 1
+            if 0 <= move <= 8 and board[move] == ' ':
+                return move
+            else:
+                print("Invalid move! Try again.")
+        except ValueError:
+            print("Please enter a number between 1-9!")
