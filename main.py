@@ -44,7 +44,7 @@ def minimax(board, depth, is_maximizing):
         return 0
     
     if is_maximizing:
-        best_score = float('-inf')
+        best_score = float('-inf')  # Initialize best score to negative infinity
         for i in range(9):
             if board[i] == ' ':
                 board[i] = 'X'
@@ -61,3 +61,19 @@ def minimax(board, depth, is_maximizing):
                 board[i] = ' '
                 best_score = min(score, best_score)
         return best_score
+
+def ai_move(board):
+    """AI makes move using minimax"""
+    best_score = float('-inf')
+    best_move = None
+    
+    for i in range(9):
+        if board[i] == ' ':
+            board[i] = 'X'
+            score = minimax(board, 0, False)
+            board[i] = ' '
+            if score > best_score:
+                best_score = score
+                best_move = i
+    
+    return best_move
