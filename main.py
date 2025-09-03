@@ -88,3 +88,68 @@ def get_player_move(board):
                 print("Invalid move! Try again.")
         except ValueError:
             print("Please enter a number between 1-9!")
+
+def play_game():
+    # Initialize empty board
+    board = [' '] * 9
+    
+    # Let player choose their symbol
+    player_symbol = ''
+    while player_symbol not in ['X', 'O']:
+        player_symbol = input("Choose your symbol (X/O): ").upper()
+    
+    ai_symbol = 'O' if player_symbol == 'X' else 'X'
+    
+    print(f"\nYou are '{player_symbol}', AI is '{ai_symbol}'")
+    print("Positions:")
+    print(" 1 | 2 | 3 ")
+    print("___|___|___")
+    print(" 4 | 5 | 6 ")
+    print("___|___|___")
+    print(" 7 | 8 | 9 ")
+    print("\n")
+    
+    # Determine who goes first (X always starts)
+    if player_symbol == 'X':
+        current_turn = 'player'
+    else:
+        current_turn = 'ai'
+    
+    # Game loop
+    while True:
+        printTemplate(board)
+        
+        # Check for game over
+        result = check_winner(board)
+        if result:
+            if result == 'Tie':
+                print("It's a tie!")
+            else:
+                print(f"{result} wins!")
+            break
+        
+        # Player's turn
+        if current_turn == 'player':
+            print("Your turn!")
+            move = get_player_move(board)
+            board[move] = player_symbol
+            current_turn = 'ai'
+        # AI's turn
+        else:
+            print("AI's turn...")
+            move = ai_move(board)
+            board[move] = ai_symbol
+            print(f"AI chooses position {move + 1}")
+            current_turn = 'player'
+    
+    # Ask if player wants to play again
+    play_again = input("\nPlay again? (y/n): ").lower()
+    if play_again == 'y':
+        play_game()
+    else:
+        print("Thanks for playing!")
+
+# Start the game
+if __name__ == "__main__":
+    print("TIC-TAC-TOE GAME WITH AI\n")
+    play_game()
